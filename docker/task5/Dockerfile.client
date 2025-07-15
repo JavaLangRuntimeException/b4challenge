@@ -5,7 +5,8 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # 必要なPythonパッケージをインストール
-RUN pip install --no-cache-dir websockets
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
 # ログディレクトリを作成
 RUN mkdir -p /app/logs
