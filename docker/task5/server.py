@@ -4,6 +4,8 @@ import websockets
 import json
 import datetime
 import os
+import time
+import socket  # ← 追加
 
 # ログファイルのパス
 LOG_FILE = "/app/logs/websocket.log"
@@ -13,66 +15,78 @@ def log_message(message):
     os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(LOG_FILE, "a", encoding="utf-8") as f:
-        f.write(f"[{timestamp}] {message}\n")
-    print(f"[{timestamp}] {message}")
+        f.write(f"[{timestamp}] [CLIENT] {message}\n")
+    print(f"[{timestamp}] [CLIENT] {message}")
 
-async def handle_client(websocket, path):
-    """クライアントからの接続を処理"""
-    client_address = websocket.remote_address
-    log_message(f"クライアントが接続しました: {client_address}")
+async def send_messages():
+    """サーバーにメッセージを送信"""
+    uri = "ws://server:8765"
 
-    try:
-        async for message in websocket:
-            # 受信したメッセージをログに記録
-            log_message(f"受信: {message}")
+    # サーバーの起動を待つ
+    log_message("サーバーへの接続を試行中...")
 
-            # JSONとしてパース
-            try:
-                data = json.loads(message)
-                client_message = data.get("message", "")
+    max_retries = 10
+    retry_count = 0
 
-                # 応答メッセージを作成
-                response = {
-                    "timestamp": datetime.datetime.now().isoformat(),
-                    "server_message": f"サーバーが受信しました: {client_message}",
-                    "status": "success"
-                }
+    while retry_count < max_retries:
+        try:
+            async with websockets.connect(uri) as websocket:
+                log_message(f"サーバーに接続しました: {uri}")
 
-                # クライアントに応答を送信
-                await websocket.send(json.dumps(response, ensure_ascii=False))
-                log_message(f"送信: {json.dumps(response, ensure_ascii=False)}")
+                # 複数のメッセージを送信
+                messages = [
+                    "こんにちは、サーバー！",
+                    "WebSocket通信のテストです",
+                    "Docker Composeで動作中",
+                    "コンテナ間通信が成功しました",
+                    "最後のメッセージです"
+                ]
 
-            except json.JSONDecodeError:
-                # JSONでない場合のエラー応答
-                error_response = {
-                    "timestamp": datetime.datetime.now().isoformat(),
-                    "error": "Invalid JSON format",
-                    "status": "error"
-                }
-                await websocket.send(json.dumps(error_response))
-                log_message(f"エラー送信: Invalid JSON format")
+                for i, msg in enumerate(messages, 1):
+                    # メッセージをJSON形式で作成
+                    message_data = {
+                        "message": msg,
+                        "message_id": i,
+                        "timestamp": datetime.datetime.now().isoformat()
+                    }
 
-    except websockets.exceptions.ConnectionClosed:
-        log_message(f"クライアントが切断しました: {client_address}")
-    except Exception as e:
-        log_message(f"エラーが発生しました: {e}")
+                    # サーバーにメッセージを送信
+                    await websocket.send(json.dumps(message_data, ensure_ascii=False))
+                    log_message(f"送信 [{i}]: {msg}")
+
+                    # サーバーからの応答を受信
+                    response = await websocket.recv()
+                    log_message(f"受信 [{i}]: {response}")
+
+                    # 1秒待機
+                    await asyncio.sleep(1)
+
+                log_message("全メッセージの送信が完了しました")
+                break
+
+        except ConnectionRefusedError:  # ← 修正
+            retry_count += 1
+            log_message(f"接続に失敗しました。再試行中... ({retry_count}/{max_retries})")
+            await asyncio.sleep(2)
+        except socket.gaierror as e:    # ← DNS解決失敗にも対応
+            retry_count += 1
+            log_message(f"アドレス解決に失敗しました。再試行中... ({retry_count}/{max_retries}) エラー: {e}")
+            await asyncio.sleep(2)
+        except Exception as e:
+            log_message(f"エラーが発生しました: {e}")
+            break
+
+    if retry_count >= max_retries:
+        log_message("サーバーへの接続に失敗しました。最大再試行回数に達しました。")
 
 async def main():
-    """WebSocketサーバーを起動"""
-    host = "0.0.0.0"
-    port = 8765
-
-    log_message(f"WebSocketサーバーを起動します: ws://{host}:{port}")
-
-    # WebSocketサーバーを開始
-    server = await websockets.serve(handle_client, host, port)
-    log_message("WebSocketサーバーが起動しました")
-
-    # サーバーを永続的に実行
-    await server.wait_closed()
+    """クライアントのメイン処理"""
+    log_message("WebSocketクライアントを開始します")
+    await send_messages()
+    log_message("WebSocketクライアントを終了します")
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        log_message("サーバーが停止されました")
+        log_message("クライアントが停止されました")
