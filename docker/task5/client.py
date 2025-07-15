@@ -5,6 +5,7 @@ import json
 import datetime
 import os
 import time
+import socket  # ← 追加
 
 # ログファイルのパス
 LOG_FILE = "/app/logs/websocket.log"
@@ -63,9 +64,13 @@ async def send_messages():
                 log_message("全メッセージの送信が完了しました")
                 break
 
-        except websockets.exceptions.ConnectionRefusedError:
+        except ConnectionRefusedError:  # ← 修正
             retry_count += 1
             log_message(f"接続に失敗しました。再試行中... ({retry_count}/{max_retries})")
+            await asyncio.sleep(2)
+        except socket.gaierror as e:    # ← DNS解決失敗にも対応
+            retry_count += 1
+            log_message(f"アドレス解決に失敗しました。再試行中... ({retry_count}/{max_retries}) エラー: {e}")
             await asyncio.sleep(2)
         except Exception as e:
             log_message(f"エラーが発生しました: {e}")
