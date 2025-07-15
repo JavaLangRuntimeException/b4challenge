@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  # webコンテナ：Docker getting-startedを実行
+  web:
+    image: docker/getting-started
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+
+  # appコンテナ：pingコマンドを実行
+  app:
+    build: .
+    depends_on:
+      - web
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  # WebSocketサーバー
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "8765:8765"
+    volumes:
+      - ./logs:/app/logs  # ログファイルをホストと共有
+    networks:
+      - websocket-network
+
+  # WebSocketクライアント
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    depends_on:
+      - server
+    volumes:
+      - ./logs:/app/logs  # ログファイルをホストと共有
+    networks:
+      - websocket-network
+
+networks:
+  websocket-network:
+    driver: bridge
+
+volumes:
+  logs:
+    driver: local

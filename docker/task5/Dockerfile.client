@@ -1,0 +1,17 @@
+# Python 3.11をベースイメージとして使用
+FROM python:3.11-slim
+
+# 作業ディレクトリを設定
+WORKDIR /app
+
+# 必要なPythonパッケージをインストール
+RUN pip install --no-cache-dir websockets
+
+# ログディレクトリを作成
+RUN mkdir -p /app/logs
+
+# クライアントスクリプトをコピー
+COPY client.py /app/
+
+# クライアントを実行
+CMD ["python", "client.py"]
