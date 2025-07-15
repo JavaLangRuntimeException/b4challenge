@@ -1,0 +1,44 @@
+root@PC-034:~# mkdir -p docker/task3
+root@PC-034:~# cd docker/task3/
+root@PC-034:~/docker/task3# vi Dockerfile
+root@PC-034:~/docker/task3# docker build -t b4_docker .
+[+] Building 130.3s (6/6) FINISHED                                                                       docker:default
+ => [internal] load build definition from Dockerfile                                                               0.1s
+ => => transferring dockerfile: 487B                                                                               0.0s
+ => [internal] load metadata for docker.io/library/ubuntu:22.04                                                    3.5s
+ => [internal] load .dockerignore                                                                                  0.1s
+ => => transferring context: 2B                                                                                    0.0s
+ => [1/2] FROM docker.io/library/ubuntu:22.04@sha256:3c61d3759c2639d4b836d32a2d3c83fa0214e36f195a3421018dbaaf79cb  1.7s
+ => => resolve docker.io/library/ubuntu:22.04@sha256:3c61d3759c2639d4b836d32a2d3c83fa0214e36f195a3421018dbaaf79cb  0.1s
+ => => sha256:e735f3a6b70199ad991c5715d965a4d858540eca2be18be0d889698e5a0a3e8c 29.54MB / 29.54MB                   0.8s
+ => => extracting sha256:e735f3a6b70199ad991c5715d965a4d858540eca2be18be0d889698e5a0a3e8c                          0.7s
+ => [2/2] RUN apt-get update &&     apt-get install -y neofetch &&     apt-get clean &&     rm -rf /var/lib/apt  116.4s
+ => exporting to image                                                                                             8.1s
+ => => exporting layers                                                                                            6.5s
+ => => exporting manifest sha256:ed1eec49744936a8e4dbe8c4206c723624d2ed73dd064e1d397d39245d158f77                  0.0s
+ => => exporting config sha256:663eca795a544e85ebf94c1b4e6b11cf9666670363295704ac5195d3917dd3df                    0.0s
+ => => exporting attestation manifest sha256:bd8d714ff0d7eaf67d6be70bb0a9e34d6bb5fdfd95473a5b6aa7857b8aabdc62      0.1s
+ => => exporting manifest list sha256:26d91cebf2dff9b90597d59cb4e2910cc0da91da7bf9c4eafba28a28848a7a46             0.0s
+ => => naming to docker.io/library/b4_docker:latest                                                                0.0s
+ => => unpacking to docker.io/library/b4_docker:latest                                                             1.3s
+root@PC-034:~/docker/task3# docker run --rm -it b4_docker neofetch
+            .-/+oossssoo+/-.               root@a81a553ceb66
+        `:+ssssssssssssssssss+:`           -----------------
+      -+ssssssssssssssssssyyssss+-         OS: Ubuntu 22.04.5 LTS on Windows 10 x86_64
+    .ossssssssssssssssssdMMMNysssso.       Kernel: 6.6.87.2-microsoft-standard-WSL2
+   /ssssssssssshdmmNNmmyNMMMMhssssss/      Uptime: 32 mins
+  +ssssssssshmydMMMMMMMNddddyssssssss+     Packages: 231 (dpkg)
+ /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/    Shell: bash 5.1.16
+.ssssssssdMMMNhsssssssssshNMMMdssssssss.   CPU: 11th Gen Intel i5-11400 (12) @ 2.591GHz
++sssshhhyNMMNyssssssssssssyNMMMysssssss+   GPU: 53e3:00:00.0 Microsoft Corporation Device 008e
+ossyNMMMNyMMhsssssssssssssshmmmhssssssso   Memory: 737MiB / 7867MiB
+ossyNMMMNyMMhsssssssssssssshmmmhssssssso
++sssshhhyNMMNyssssssssssssyNMMMysssssss+
+.ssssssssdMMMNhsssssssssshNMMMdssssssss.
+ /sssssssshNMMMyhhyyyyhdNMMMNhssssssss/
+  +sssssssssdmydMMMMMMMMddddyssssssss+
+   /ssssssssssshdmNNNNmyNMMMMhssssss/
+    .ossssssssssssssssssdMMMNysssso.
+      -+sssssssssssssssssyyyssss+-
+        `:+ssssssssssssssssss+:`
+            .-/+oossssoo+/-.
