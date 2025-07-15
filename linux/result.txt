@@ -1,0 +1,125 @@
+PS C:\WINDOWS\system32> wsl -d Ubuntu-22.04
+root@PC-034:/mnt/c/WINDOWS/system32# cd
+root@PC-034:~# ls
+develop  task2-a
+root@PC-034:~# cd task2-a
+root@PC-034:~/task2-a# echo "Hello, Linux!" > hello.txt
+root@PC-034:~/task2-a# ls
+hello.txt
+root@PC-034:~/task2-a# cat hello.txt
+Hello, Linux!
+root@PC-034:~/task2-a# sudo apt update
+Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [14.1 MB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/universe Translation-en [5652 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/universe amd64 c-n-f Metadata [286 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [217 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/multiverse Translation-en [112 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 c-n-f Metadata [8372 B]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [2723 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [434 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 c-n-f Metadata [18.5 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [3898 kB]
+Get:15 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [2474 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [698 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 c-n-f Metadata [676 B]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1221 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [301 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 c-n-f Metadata [28.7 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [47.1 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse Translation-en [12.0 kB]
+Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 c-n-f Metadata [592 B]
+Get:24 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [68.8 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy-backports/main Translation-en [11.4 kB]
+Get:26 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 c-n-f Metadata [392 B]
+Get:27 http://archive.ubuntu.com/ubuntu jammy-backports/restricted amd64 c-n-f Metadata [116 B]
+Get:28 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [30.0 kB]
+Get:29 http://archive.ubuntu.com/ubuntu jammy-backports/universe Translation-en [16.5 kB]
+Get:30 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 c-n-f Metadata [672 B]
+Get:31 http://archive.ubuntu.com/ubuntu jammy-backports/multiverse amd64 c-n-f Metadata [116 B]
+Get:32 http://security.ubuntu.com/ubuntu jammy-security/main Translation-en [370 kB]
+Get:33 http://security.ubuntu.com/ubuntu jammy-security/main amd64 c-n-f Metadata [13.6 kB]
+Get:34 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [3767 kB]
+Get:35 http://security.ubuntu.com/ubuntu jammy-security/restricted Translation-en [677 kB]
+Get:36 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 c-n-f Metadata [624 B]
+Get:37 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [990 kB]
+Get:38 http://security.ubuntu.com/ubuntu jammy-security/universe Translation-en [214 kB]
+Get:39 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 c-n-f Metadata [21.7 kB]
+Get:40 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [40.3 kB]
+Get:41 http://security.ubuntu.com/ubuntu jammy-security/multiverse Translation-en [8908 B]
+Get:42 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 c-n-f Metadata [368 B]
+Fetched 38.8 MB in 12s (3113 kB/s)
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+105 packages can be upgraded. Run 'apt list --upgradable' to see them.
+root@PC-034:~/task2-a# sudo apt install sl
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  sl
+0 upgraded, 1 newly installed, 0 to remove and 105 not upgraded.
+Need to get 12.7 kB of archives.
+After this operation, 60.4 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy/universe amd64 sl amd64 5.02-1 [12.7 kB]
+Fetched 12.7 kB in 0s (40.0 kB/s)
+Selecting previously unselected package sl.
+(Reading database ... 42578 files and directories currently installed.)
+Preparing to unpack .../archives/sl_5.02-1_amd64.deb ...
+Unpacking sl (5.02-1) ...
+Setting up sl (5.02-1) ...
+Processing triggers for man-db (2.10.2-1) ...
+root@PC-034:~/task2-a# sl
+
+root@PC-034:~/task2-a# vi task3.sh
+root@PC-034:~/task2-a# chmod +x task3.sh
+root@PC-034:~/task2-a# ./task3.sh newfile.txt
+----start----
+ファイルのコピーが完了しました
+ファイル名を newfile.txt に変更中...
+ファイルの内容を表示します:
+Hello, Linux!
+----end----
+作成されたファイル: ~/task3/newfile.txt
+root@PC-034:~/task2-a# cat task3.sh
+if [ $# -eq 0 ]; then
+    echo "使用方法: $0 <新しいファイル名>"
+    echo "例: $0 newfile.txt"
+    exit 1
+fi
+
+NEW_FILENAME="$1"
+
+echo "----start----"
+
+mkdir -p ~/task3
+
+if [ -f ~/task2-a/hello.txt ]; then
+    cp ~/task2-a/hello.txt ~/task3/
+    echo "ファイルのコピーが完了しました"
+else
+    echo "警告: ~/task2-a/hello.txt が見つかりません"
+    echo "課題2-aを先に実行してください"
+    exit 1
+fi
+
+echo "ファイル名を ${NEW_FILENAME} に変更中..."
+mv ~/task3/hello.txt ~/task3/"${NEW_FILENAME}"
+
+echo "ファイルの内容を表示します:"
+cat ~/task3/"${NEW_FILENAME}"
+
+echo "----end----"
+
+echo "作成されたファイル: ~/task3/${NEW_FILENAME}"
+
+root@PC-034:~/task2-a# cd ..
+root@PC-034:~# cd task3
+root@PC-034:~/task3# ls
+newfile.txt
+root@PC-034:~/task3# cat newfile.txt
+Hello, Linux!
