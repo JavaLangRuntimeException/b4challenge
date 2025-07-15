@@ -2,42 +2,6 @@ root@PC-034:~/docker# mkdir task4
 root@PC-034:~/docker# cd task4
 root@PC-034:~/docker/task4# vi Dockerfile
 root@PC-034:~/docker/task4# vi docker-compose.yml
-root@PC-034:~/docker/task4# docker-compose up --build]
-unknown flag: --build]
-root@PC-034:~/docker/task4# docker-compose up --build
-WARN[0000] /root/docker/task4/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
-[+] Building 15.6s (8/8) FINISHED
- => [internal] load local bake definitions                                                                         0.0s
- => => reading from stdin 328B                                                                                     0.0s
- => [internal] load build definition from Dockerfile                                                               0.1s
- => => transferring dockerfile: 491B                                                                               0.0s
- => [internal] load metadata for docker.io/library/ubuntu:22.04                                                    1.4s
- => [internal] load .dockerignore                                                                                  0.1s
- => => transferring context: 2B                                                                                    0.0s
- => CACHED [1/2] FROM docker.io/library/ubuntu:22.04@sha256:3c61d3759c2639d4b836d32a2d3c83fa0214e36f195a3421018db  0.1s
- => => resolve docker.io/library/ubuntu:22.04@sha256:3c61d3759c2639d4b836d32a2d3c83fa0214e36f195a3421018dbaaf79cb  0.1s
- => [2/2] RUN apt-get update &&     apt-get install -y iputils-ping &&     apt-get clean &&     rm -rf /var/lib/  12.9s
- => exporting to image                                                                                             0.5s
- => => exporting layers                                                                                            0.3s
- => => exporting manifest sha256:65475c76641a3a28d6783a90967d5d34e141d41dc4c800f3987a849c30a8e614                  0.0s
- => => exporting config sha256:488cd0a2f6d3aa67ecc23f3f5f0662ea2aa90d14766ae8f5f97e65176da6ebe7                    0.0s
- => => exporting attestation manifest sha256:ac1b7cc5aa660ed585767b278c90e19f00b84f49495ab0ce0e6a7d61b09eeb91      0.1s
- => => exporting manifest list sha256:32d03ac6500d2e17e9210043d5ed10d870f2ffbb585474303c247792e9b4206c             0.0s
- => => naming to docker.io/library/task4-app:latest                                                                0.0s
- => => unpacking to docker.io/library/task4-app:latest                                                             0.1s
- => resolving provenance for metadata file                                                                         0.0s
-[+] Running 4/4
- ✔ app                        Built                                                                                0.0s
- ✔ Network task4_app-network  Created                                                                              0.1s
- ✔ Container task4-web-1      Created                                                                              0.1s
- ✔ Container task4-app-1      Created                                                                              0.1s
-Attaching to app-1, web-1
-Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint task4-web-1 (a1724c291c023a51710fc23e9d84c0cfb3b62db7ed6d4060a18e75665c004b1c): Bind for 0.0.0.0:80 failed: port is already allocated
-root@PC-034:~/docker/task4# docker ps
-CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS          PORTS                                 NAMES
-f3eba06e5801   docker/getting-started   "/docker-entrypoint.…"   14 minutes ago   Up 14 minutes   0.0.0.0:80->80/tcp, [::]:80->80/tcp   gifted_diffie
-root@PC-034:~/docker/task4# docker stop f3eba06e5801
-f3eba06e5801
 root@PC-034:~/docker/task4# docker-compose up --build
 WARN[0000] /root/docker/task4/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
 [+] Building 1.4s (8/8) FINISHED
