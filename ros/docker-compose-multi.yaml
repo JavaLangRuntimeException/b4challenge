@@ -1,0 +1,46 @@
+# 課題11: 2つのマシン間でトピック通信
+# 2つのDockerコンテナで実施（composeを使用）
+
+version: '3.8'
+
+services:
+  ros2_container1:
+    image: b4_ros2:latest
+    container_name: ros2_container1
+    hostname: ros2_host1
+    environment:
+      - ROS_DOMAIN_ID=0
+      - ROS_LOCALHOST_ONLY=0
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${PWD}/src:/workspace/src:rw
+    networks:
+      - ros2_multi_network
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+  ros2_container2:
+    image: b4_ros2:latest
+    container_name: ros2_container2
+    hostname: ros2_host2
+    environment:
+      - ROS_DOMAIN_ID=0
+      - ROS_LOCALHOST_ONLY=0
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${PWD}/src:/workspace/src:rw
+    networks:
+      - ros2_multi_network
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+networks:
+  ros2_multi_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.0.0/16

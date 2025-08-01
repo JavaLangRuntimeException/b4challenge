@@ -1,5 +1,6 @@
 PS C:\WINDOWS\system32> wsl -d Ubuntu-22.04
 root@PC-034:/mnt/c/WINDOWS/system32# cd
+root@PC-034:~# mkdir task2-a
 root@PC-034:~# ls
 develop  task2-a
 root@PC-034:~# cd task2-a

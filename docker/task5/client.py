@@ -1,13 +1,12 @@
-#!/usr/bin/env python3
 import asyncio
 import websockets
 import json
 import datetime
 import os
 import time
-import socket  # ← 追加
+import socket
 
-# ログファイルのパス
+
 LOG_FILE = "/app/logs/websocket.log"
 
 def log_message(message):
@@ -22,7 +21,6 @@ async def send_messages():
     """サーバーにメッセージを送信"""
     uri = "ws://server:8765"
 
-    # サーバーの起動を待つ
     log_message("サーバーへの接続を試行中...")
 
     max_retries = 10
@@ -33,7 +31,6 @@ async def send_messages():
             async with websockets.connect(uri) as websocket:
                 log_message(f"サーバーに接続しました: {uri}")
 
-                # 複数のメッセージを送信
                 messages = [
                     "こんにちは、サーバー！",
                     "WebSocket通信のテストです",
@@ -43,32 +40,28 @@ async def send_messages():
                 ]
 
                 for i, msg in enumerate(messages, 1):
-                    # メッセージをJSON形式で作成
                     message_data = {
                         "message": msg,
                         "message_id": i,
                         "timestamp": datetime.datetime.now().isoformat()
                     }
 
-                    # サーバーにメッセージを送信
                     await websocket.send(json.dumps(message_data, ensure_ascii=False))
                     log_message(f"送信 [{i}]: {msg}")
 
-                    # サーバーからの応答を受信
                     response = await websocket.recv()
                     log_message(f"受信 [{i}]: {response}")
 
-                    # 1秒待機
                     await asyncio.sleep(1)
 
                 log_message("全メッセージの送信が完了しました")
                 break
 
-        except ConnectionRefusedError:  # ← 修正
+        except ConnectionRefusedError:
             retry_count += 1
             log_message(f"接続に失敗しました。再試行中... ({retry_count}/{max_retries})")
             await asyncio.sleep(2)
-        except socket.gaierror as e:    # ← DNS解決失敗にも対応
+        except socket.gaierror as e:
             retry_count += 1
             log_message(f"アドレス解決に失敗しました。再試行中... ({retry_count}/{max_retries}) エラー: {e}")
             await asyncio.sleep(2)

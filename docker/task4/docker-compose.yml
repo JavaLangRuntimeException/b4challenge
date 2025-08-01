@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # webコンテナ：Docker getting-startedを実行
   web:
     image: docker/getting-started
     ports:
@@ -9,7 +8,6 @@ services:
     networks:
       - app-network
 
-  # appコンテナ：pingコマンドを実行
   app:
     build: .
     depends_on:
